@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS candidates(
+    id TEXT PRIMARY KEY,
+    vote_qnt INTEGER DEFAULT 0
+);
