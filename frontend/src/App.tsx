@@ -8,7 +8,7 @@ interface Candidate {
 }
 
 function App() {
-  const [candidates, setCandidates] = useState<Candidate | null>(null);
+  const [candidates, setCandidates] = useState<Candidate[] | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,16 +25,18 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(candidates);
-
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center min-h-screen space-y-4">
+      <p className="text-lg">Escolha um dos candidatos:</p>
       {candidates ? (
-        <ul>
-          {candidates.map((candidate: Candidate) => (
-            <li key={candidate.id}>{candidate.name}</li>
-          ))}
-        </ul>
+        candidates.map((candidate: Candidate) => (
+          <div
+            className="py-4 px-3 bg-slate-200 w-2/6 text-xl rounded-xl shadow-xl"
+            key={candidate.id}
+          >
+            {candidate.name}
+          </div>
+        ))
       ) : (
         <p>Carregando candidatos...</p>
       )}
