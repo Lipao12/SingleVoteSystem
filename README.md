@@ -42,6 +42,15 @@ This API allows you to vote for candidates and retrieve information about them. 
   }
   ```
 
+  Or
+
+  ```json
+  {
+    "error": "Error message",
+    "status": 400
+  }
+  ```
+
 ### Get All Candidates
 
 - **Endpoint**: `/candidates`
