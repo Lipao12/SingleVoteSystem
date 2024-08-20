@@ -16,7 +16,6 @@ from src.settings.service.db_connection_handler import db_connection_handler
 @vote_routes_bp.route("/vote", methods=["POST"])
 def vote_candidate():
     conn = db_connection_handler.get_connection()
-    print(db_connection_handler)
     vote_repository = VoteRepository(conn)
     controller = AddVote(vote_repository)
 

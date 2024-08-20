@@ -3,7 +3,6 @@ class CandidateFinder:
         self.candidate_repository = candidate_repository
 
     def get_candidates(self, columns):
-        print(columns)
         try:
             if columns:
                 candidates = self.candidate_repository.get_all_candidates(columns['columns'])
