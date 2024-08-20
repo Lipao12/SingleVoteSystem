@@ -10,7 +10,7 @@ class CandidateFinder:
                 candidates = self.candidate_repository.get_all_candidates([])
             return {
                 "body":  candidates,
-                "status_code": 201
+                "status_code": 200
                 } 
         except Exception as exception:
             return{

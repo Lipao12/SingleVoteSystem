@@ -1,11 +1,12 @@
 from psycopg2.extensions import connection
+from psycopg2.extras import RealDictCursor
 
 class CandidateRepository:
     def __init__(self, conn:connection) -> None:
         self.conn = conn
 
     def get_all_candidates(self, columns=None):
-        cursor = self.conn.cursor()
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
         try:
             column_list = '*'
             if columns:

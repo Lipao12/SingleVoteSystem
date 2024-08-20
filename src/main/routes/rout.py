@@ -23,7 +23,7 @@ def vote_candidate():
 
     return jsonify(response['body']), response['status_code']
 
-@vote_routes_bp.route("/candidates", methods=["GET"])
+@vote_routes_bp.route("/candidates", methods=["POST"])
 def get_candidates():
     conn = db_connection_handler.get_connection()
     vote_repository = CandidateRepository(conn)

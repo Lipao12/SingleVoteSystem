@@ -86,10 +86,18 @@ To retrieve specific columns `id`, `name`, and `vote_qnt`.
   If specific columns are requested:
 
   ```json
-  {
-    "data": [
-      ["00001", "Candidate 1"],
-      ["00002", "Candidate 2"]
-    ]
-  }
+  [
+    {
+      "id": "00001",
+      "name": "João Silva"
+    },
+    {
+      "id": "00002",
+      "name": "Maria Oliveira"
+    },
+    {
+      "id": "00003",
+      "name": "Pedro Santos"
+    }
+  ]
   ```
