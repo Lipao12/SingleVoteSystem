@@ -27,13 +27,7 @@ class DbConnectionHandler:
             print("Conexão com o PostgreSQL foi estabelecida com sucesso.")
         except OperationalError as e:
             print(f"Erro ao conectar ao PostgreSQL: {e}")
-    def get_connection(self):
-        return self.connection
-    '''def connectt(self) -> None:
-        conn = psycopg2.connect(self.__connection_string)
-        self.__conn = conn
-
     def get_connection(self) -> connection:
-        return self.__conn'''
+        return self.connection
 
 db_connection_handler = DbConnectionHandler()
