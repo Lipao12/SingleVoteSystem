@@ -4,14 +4,21 @@ class VoteRepository:
     def __init__(self, conn:connection) -> None:
         self.conn = conn
 
-    def validation_vote(self, candidateId):
-        print(candidateId)
-        def verify_IP(personIP="0000"):
-            return True
+    def verify_IP(self, personIP: str) -> bool:
+        with self.conn.cursor() as cursor:
+            cursor.execute(
+                '''
+                SELECT 1 FROM computerIP 
+                WHERE ip = %s
+                ''', (personIP,)
+            )
+            result = cursor.fetchone()
+            return result is None
+
+    def validation_vote(self, candidateId:str, IP:str):
         
-        valid = verify_IP()
-        if not valid:
-            return {"error":"Already voted", "status":400}
+        if not self.verify_IP(IP):
+            return {"error": "IP already voted", "status_code": 400}
         
         cursor = self.conn.cursor()
         try:
@@ -23,7 +30,13 @@ class VoteRepository:
             result = cursor.fetchone()
 
             if result is None:
-                return {"error": "Candidate does not exist", "status": 400}
+                return {"error": "Candidate does not exist", "status_code": 400}
+
+            cursor.execute(
+                '''
+                INSERT INTO computerIP (ip) VALUES (%s);
+                ''', (IP,)
+            )
 
             cursor.execute(
                 '''
@@ -34,11 +47,11 @@ class VoteRepository:
             )
 
             self.conn.commit()
-            return {"message": "Vote recorded successfully", "status": 200}
+            return {"message": "Vote recorded successfully", "candidateId": candidateId, "status_code": 200}
         
         except Exception as e:
             print(f"Error: {e}")
-            return {"error": "Internal server error", "status": 500}
+            return {"error": "Internal server error", "status_code": 500}
         
         finally:
             cursor.close()

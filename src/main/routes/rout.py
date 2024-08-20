@@ -20,7 +20,7 @@ def vote_candidate():
     vote_repository = VoteRepository(conn)
     controller = AddVote(vote_repository)
 
-    response = controller.vote(request.json)
+    response = controller.vote(request.json, request.remote_addr)
 
     return jsonify(response['body']), response['status_code']
 
