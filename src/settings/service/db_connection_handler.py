@@ -12,7 +12,7 @@ class DbConnectionHandler:
         self.password = os.getenv('PASSWORD')
         self.host = os.getenv('HOST')
         self.port = os.getenv('PORT')
-        self.database = os.getenv('DATABASE')
+        self.database = "vote_confirmation"
         self.__conn = None
     
     def connect(self)->None:

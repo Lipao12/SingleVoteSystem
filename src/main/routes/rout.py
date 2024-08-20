@@ -30,6 +30,8 @@ def get_candidates():
     vote_repository = CandidateRepository(conn)
     controller = CandidateFinder(vote_repository)
 
-    response = controller.get_candidates()
+
+    response = controller.get_candidates(request.json)
+
 
     return jsonify(response['body']), response['status_code']

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS candidates(
     id TEXT PRIMARY KEY,
-    name TEXT,
-    vote_qnt INTEGER DEFAULT 0
+    vote_qnt INTEGER DEFAULT 0,
+    name TEXT
 );
 
 CREATE TABLE IF NOT EXISTS computerIP(
