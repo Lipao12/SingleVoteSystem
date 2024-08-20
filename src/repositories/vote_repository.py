@@ -5,28 +5,40 @@ class VoteRepository:
         self.conn = conn
 
     def validation_vote(self, candidateId):
-        def verify_IP(personIP):
-            pass
+        print(candidateId)
+        def verify_IP(personIP="0000"):
+            return True
         
         valid = verify_IP()
         if not valid:
             return {"error":"Already voted", "status":400}
-
+        
         cursor = self.conn.cursor()
-        cursor.execute(
-            '''
-            SELECT vote_qnt FROM candidates WHERE id = %s
-            ''', (candidateId,)
-        )
+        try:
+            cursor.execute(
+                '''
+                SELECT vote_qnt FROM candidates WHERE id = %s
+                ''', (candidateId,)
+            )
+            result = cursor.fetchone()
 
-        qnt_votes = cursor.fetchone()[0] + 1
+            if result is None:
+                return {"error": "Candidate does not exist", "status": 400}
 
-        cursor.execute(
-            '''
-            UPDATE candidates 
-            SET vote_qnt = %s   
-            WHERE id = %s
-            ''', (qnt_votes, candidateId,)
-        )
+            cursor.execute(
+                '''
+                UPDATE candidates 
+                SET vote_qnt = vote_qnt + 1
+                WHERE id = %s
+                ''', (candidateId,)
+            )
 
-        self.conn.commit()
+            self.conn.commit()
+            return {"message": "Vote recorded successfully", "status": 200}
+        
+        except Exception as e:
+            print(f"Error: {e}")
+            return {"error": "Internal server error", "status": 500}
+        
+        finally:
+            cursor.close()

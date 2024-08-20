@@ -3,14 +3,15 @@ class AddVote:
         self.vote_repository = vote_repository
 
     def vote(self, candidateId):
+        print(candidateId)
         try:
-            self.vote_repository.validation_vote(candidateId)
+            self.vote_repository.validation_vote(candidateId['candidateId'])
             return {
-                "body": {"canditateId": candidateId, },
+                "body":  candidateId,
                 "status_code": 201
                 } 
         except Exception as exception:
             return{
-                "body":{"error":"Bad Request", "message":str(exception)},
+                "body":{"error":"Bad Request - Vote Candidate", "message":str(exception)},
                 "status_code":400
             }
